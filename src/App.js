@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Input from './components/Input';
 import Titles from './components/Titles';
+import Image from './components/Image';
 import './App.css';
 
 import axios from 'axios';
@@ -13,15 +14,22 @@ class App extends Component {
 
   //fetching images from unspash api
   inputChangeHandler = event => {
+    event.preventDefault();
     axios
       .get(
-        'https://api.unsplash.com/search/photos/?page=1&per_page=10&query="food"&client_id=8f23666afddaae8fe13f6efc809cdf8d837787ce77f9aaa91f8f7aa0584ea3f7'
+        `https://api.unsplash.com/search/photos/?page=1&per_page=10&query=${event.target.elements.i.value}&client_id=8f23666afddaae8fe13f6efc809cdf8d837787ce77f9aaa91f8f7aa0584ea3f7`
       )
       .then(res => {
+        console.log(res.data.results);
         const arr = [];
-        res.data.map(el => {
-          arr.push(el.urls.full);
-        });
+
+        // res.data.results.map(el => {
+        //   arr.push(el.urls.full);
+        // });
+
+        for (let i = 0; i < res.data.results.length; i++) {
+          arr.push(res.data.results[i].urls.full);
+        }
 
         this.setState({ images: arr });
       })
@@ -32,13 +40,18 @@ class App extends Component {
   };
 
   render() {
-    {
-      console.log(this.state.images);
-    }
+    const content = () => {
+      if (!this.state.images.length > 0) {
+        return null;
+      }
+        return this.state.images.map(el => <Image src={el} /> );
+    };
+
     return (
       <div className="App">
         <Titles />
-        <Input inputChangeHandler={this.inputChangeHandler} />
+        <Input call={this.inputChangeHandler} />
+        {content()}
       </div>
     );
   }

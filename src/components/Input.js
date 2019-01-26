@@ -3,11 +3,14 @@ import React from 'react';
 const input = props => {
   return (
     <React.Fragment>
+      <form onSubmit={props.call}>
       <input
-        onChange={props.inputChangeHandler}
         type="text"
+        name="i"
         placeholder="Search"
       />
+      <button>Submit</button>
+      </form>
     </React.Fragment>
   );
 };
