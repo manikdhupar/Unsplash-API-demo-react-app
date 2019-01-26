@@ -17,7 +17,7 @@ class App extends Component {
     event.preventDefault();
     axios
       .get(
-        `https://api.unsplash.com/search/photos/?page=1&per_page=10&query=${event.target.elements.i.value}&client_id=8f23666afddaae8fe13f6efc809cdf8d837787ce77f9aaa91f8f7aa0584ea3f7`
+        `https://api.unsplash.com/search/photos/?page=1&per_page=6&query=${event.target.elements.i.value}&client_id=8f23666afddaae8fe13f6efc809cdf8d837787ce77f9aaa91f8f7aa0584ea3f7`
       )
       .then(res => {
         console.log(res.data.results);
@@ -28,7 +28,7 @@ class App extends Component {
         // });
 
         for (let i = 0; i < res.data.results.length; i++) {
-          arr.push(res.data.results[i].urls.full);
+          arr.push(res.data.results[i].urls.thumb);
         }
 
         this.setState({ images: arr });
@@ -51,7 +51,9 @@ class App extends Component {
       <div className="App">
         <Titles />
         <Input call={this.inputChangeHandler} />
+        <div className="images">
         {content()}
+        </div>
       </div>
     );
   }

@@ -2,9 +2,11 @@ import React, { component } from 'react';
 // import styles from './image.css';
 
 const iStyle = {
-  height: '100px',
-  width: '100px',
-  display: 'block'
+  height: '300px',
+  width: '25%',
+  margin: '2.5%',
+  display: 'inline-block',
+  borderRadius:'15%'
 };
 
 const image = props => {
